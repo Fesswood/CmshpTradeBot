@@ -48,5 +48,9 @@ public class DataExtracter {
     public void extractDatePerHour() {
         String dataTable = getJsScript();
         mDocPart = Jsoup.parse(dataTable);
+        int dataIndexBegin = dataTable.indexOf("data.addRows([[");
+        int dataIndexFinish = dataTable.indexOf("]]);");
+        String data = dataTable.substring(dataIndexBegin,dataIndexFinish);
+        Log.d(TAG, "extractDatePerHour: "+data);
     }
 }

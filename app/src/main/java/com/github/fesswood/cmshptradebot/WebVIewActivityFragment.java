@@ -70,14 +70,15 @@ public class WebVIewActivityFragment extends Fragment {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-               if (mDataExtracter.isLoginNeeded(url) && mWvState != LOGIN_STATE) {
+                if (mDataExtracter.isLoginNeeded(url) && mWvState != LOGIN_STATE) {
                     loadLoginPage();
                     mWvState = LOGIN_STATE;
-                } else if (!mDataExtracter.isLoginNeeded(url) && IFRAME_URL != url) {
+                } else if (mWvState == IFRAME_STATE && IFRAME_URL.equals(url)) {
+                    view.loadUrl("javascript:window.HTMLOUT.processHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
+
+                } else if (!mDataExtracter.isLoginNeeded(url) && !IFRAME_URL.equals(url)) {
                     loadIframe();
                     mWvState = IFRAME_STATE;
-                }else if(mWvState == IFRAME_STATE && IFRAME_URL == url){
-                    view.loadUrl("javascript:window.HTMLOUT.processHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
                 }
             }
         });
