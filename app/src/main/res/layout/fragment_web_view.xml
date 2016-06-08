@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.github.fesswood.cmshptradebot.WebVIewActivityFragment"
+                tools:context=".presentation.main.WebVIewActivityFragment"
                 tools:showIn="@layout/activity_web_view">
 
    <WebView

@@ -15,3 +15,13 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontwarn org.mozilla.javascript.**
+-dontwarn org.mozilla.classfile.**
+# rhino
+-keep public class java.awt.** { public *; }
+-keep public class javax.swing.** { public *; }
+-keep public class org.apache.xmlbeans** { public *; }
+-dontwarn java.awt.**
+-dontwarn javax.swing.**
+-dontwarn org.apache.xmlbeans**
