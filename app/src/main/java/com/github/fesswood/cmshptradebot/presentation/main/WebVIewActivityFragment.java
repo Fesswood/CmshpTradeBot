@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
-import com.github.fesswood.cmshptradebot.ChartDataExtractor;
+import com.github.fesswood.cmshptradebot.domain.ChartDataExtractor;
 import com.github.fesswood.cmshptradebot.R;
 import com.github.fesswood.cmshptradebot.app.App;
 import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;

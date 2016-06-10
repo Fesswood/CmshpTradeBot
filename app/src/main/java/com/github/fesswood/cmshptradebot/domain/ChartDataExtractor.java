@@ -1,4 +1,4 @@
-package com.github.fesswood.cmshptradebot;
+package com.github.fesswood.cmshptradebot.domain;
 
 import android.content.Context;
 import android.os.AsyncTask;

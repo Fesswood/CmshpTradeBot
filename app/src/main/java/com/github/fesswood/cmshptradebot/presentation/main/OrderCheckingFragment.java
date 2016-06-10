@@ -11,12 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
-import com.github.fesswood.cmshptradebot.OrderDataExtractor;
+import com.github.fesswood.cmshptradebot.app.App;
+import com.github.fesswood.cmshptradebot.data.event.TradeEvent;
+import com.github.fesswood.cmshptradebot.data.event.WaitForLoginEvent;
+import com.github.fesswood.cmshptradebot.domain.OrderDataExtractor;
 import com.github.fesswood.cmshptradebot.R;
 import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;
 import com.github.fesswood.cmshptradebot.data.order.OrderModel;
+import com.github.fesswood.cmshptradebot.domain.OrderNotificationManager;
 import com.github.fesswood.cmshptradebot.presentation.main.common.WebViewManager;
 
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +39,8 @@ public class OrderCheckingFragment extends Fragment {
     private WebViewManager mViewManager;
     OrderDataExtractor mOrderDataExtractor;
     private boolean mIsBotirstLaunch = true;
+    private List<Double> mSupportLevel = new ArrayList<>();
+    private List<Double> mResistanceLevel = new ArrayList<>();
 
     public OrderCheckingFragment() {
     }
@@ -46,6 +55,8 @@ public class OrderCheckingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_web_view, container, false);
         mViewManager = new WebViewManager((WebView) view.findViewById(R.id.wvSite));
         mViewManager.enableOrderCheckMode();
+        //TODO delete test data
+        mSupportLevel.add(0.3);
         return view;
     }
 
@@ -72,19 +83,30 @@ public class OrderCheckingFragment extends Fragment {
     }
 
     private void checkSupportLevel(OrderModel orderModel) {
-
+        double price = orderModel.getPrice();
+        for (Double level : mSupportLevel) {
+            if(level > price){
+                OrderNotificationManager.getInstance().notifySupportLevelBroken(level , price);
+            }
+        }
     }
 
     @Override
     public void onResume() {
-        super.onResume();
-
+        super.onStart();
+        App.getBus().register(this);
     }
 
     @Override
     public void onPause() {
-        super.onPause();
-        //
+        App.getBus().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void WaitForLoginEvent(WaitForLoginEvent event) {
+        Log.d(TAG, "WaitForLoginEvent: awaiting for login");
+        mHandler.postDelayed(mRepeatRunnable, mUpdateInterval);
     }
 
     @Override

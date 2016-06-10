@@ -1,6 +1,7 @@
 package com.github.fesswood.cmshptradebot.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import com.github.fesswood.cmshptradebot.BuildConfig;
@@ -17,10 +18,12 @@ import io.realm.RealmConfiguration;
 public class App extends Application {
 
     private static final String TAG = App.class.getSimpleName();
+    private static Context sGlobalContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sGlobalContext = getApplicationContext();
         initRealm();
 
     }
@@ -28,6 +31,12 @@ public class App extends Application {
     public static EventBus getBus(){
         return EventBus.getDefault();
     }
+
+    public static Context getGlobalContext() {
+        return sGlobalContext;
+    }
+
+
     private void initRealm() {
         Log.d(TAG, "initRealm() starts");
         RealmConfiguration.Builder builder = new RealmConfiguration.Builder(getApplicationContext())
