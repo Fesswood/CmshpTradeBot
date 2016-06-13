@@ -1,10 +1,11 @@
-package com.github.fesswood.cmshptradebot;
+package com.github.fesswood.cmshptradebot.domain;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.github.fesswood.cmshptradebot.data.order.OrderModel;
 import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel;
 import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticObjectMapper;
 import com.github.fesswood.cmshptradebot.data.db.order.OrderModel;
@@ -57,15 +58,18 @@ public class OrderDataExtractor {
     @Nullable
     public OrderModel getOrder(String xpathGetFirstSellOrder) {
         if (mIsInitCompleted) {
-            Elements elements = Xsoup.compile(xpathGetFirstSellOrder).evaluate(mDoc).getElements();
-            Elements td = elements.get(0).getElementsByTag("td");
-            Element price = td.get(0);
-            Element partCount = td.get(1);
-            if (price != null && partCount != null) {
-                return new OrderModel(Float.parseFloat(price.html()), Integer.parseInt(partCount.html().split("\\<sub\\>")[0]));
-            }else {
-                Log.e(TAG, "getOrder: price or partCount elemnts is null");
+             Elements elements = Xsoup.compile(xpathGetFirstSellOrder).evaluate(mDoc).getElements();
+            if(!elements.isEmpty()){
+                Elements td = elements.get(0).getElementsByTag("td");
+                Element price = td.get(0);
+                Element partCount = td.get(1);
+                if (price != null && partCount != null) {
+                    return new OrderModel(Float.parseFloat(price.html()), Integer.parseInt(partCount.html().split("\\<sub\\>")[0]));
+                }else {
+                    Log.e(TAG, "getOrder: price or partCount elemnts is null");
+                }
             }
+
         } else {
             Log.e(TAG, "getOrder: init has't been done!");
         }
@@ -113,6 +117,7 @@ public class OrderDataExtractor {
         @Override
         protected void onPostExecute(List<OrderModel> result) {
             Log.d(TAG, "onPostExecute() called with: " + "result = [" + result + "]");
+
             if (FinishedListener != null) {
                 FinishedListener.finished(result);
             }
