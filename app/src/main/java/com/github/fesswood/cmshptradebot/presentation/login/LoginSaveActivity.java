@@ -1,6 +1,5 @@
 package com.github.fesswood.cmshptradebot.presentation.login;
 
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.github.fesswood.cmshptradebot.R;
-import com.github.fesswood.cmshptradebot.data.UserDetail.ProfileModel;
-import com.github.fesswood.cmshptradebot.data.UserDetail.ProfileRepository;
+import com.github.fesswood.cmshptradebot.data.db.UserDetail.ProfileModel;
+import com.github.fesswood.cmshptradebot.data.db.UserDetail.ProfileRepository;
 import com.github.fesswood.cmshptradebot.presentation.router.Router;
-
-import io.realm.Realm;
 
 
 public class LoginSaveActivity extends AppCompatActivity implements View.OnClickListener {

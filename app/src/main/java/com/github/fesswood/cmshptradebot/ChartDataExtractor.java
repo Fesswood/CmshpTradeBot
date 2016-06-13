@@ -5,9 +5,9 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.DbRepository;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticObjectMapper;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.DbRepository;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticObjectMapper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 import us.codecraft.xsoup.Xsoup;
 
-import static com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel.*;
+import static com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel.*;
 
 /**
  * Created by fesswood on 22.05.16.
@@ -51,50 +51,6 @@ public class ChartDataExtractor {
         if (mIsInitCompleted) {
             String xpathGetJs = "/html/head/script[2]";
             return Xsoup.compile(xpathGetJs).evaluate(mDoc).get();
-        } else {
-            Log.e(TAG, "getJsScript: ");
-        }
-        return null;
-    }
-
-    @Nullable
-    public String getFirstSellOrder(){
-        if (mIsInitCompleted) {
-            String xpathGetFirstSellOrder = "//*[@id=\"sell_orders_list_table\"]/table/tbody/tr[1]";
-            return Xsoup.compile(xpathGetFirstSellOrder).evaluate(mDoc).get();
-        } else {
-            Log.e(TAG, "getJsScript: ");
-        }
-        return null;
-    }
-
-    @Nullable
-    public String getSecondSellOrder(){
-        if (mIsInitCompleted) {
-            String xpathGetFirstSellOrder = "//*[@id=\"sell_orders_list_table\"]/table/tbody/tr[2]";
-            return Xsoup.compile(xpathGetFirstSellOrder).evaluate(mDoc).get();
-        } else {
-            Log.e(TAG, "getJsScript: ");
-        }
-        return null;
-    }
-
-    @Nullable
-    public String getFirstBuyOrder(){
-        if (mIsInitCompleted) {
-            String xpathGetFirstSellOrder = "//*[@id=\"buy_orders_list_table\"]/table/tbody/tr[1]";
-            return Xsoup.compile(xpathGetFirstSellOrder).evaluate(mDoc).get();
-        } else {
-            Log.e(TAG, "getJsScript: ");
-        }
-        return null;
-    }
-
-    @Nullable
-    public String getSecondBuyOrder(){
-        if (mIsInitCompleted) {
-            String xpathGetFirstSellOrder = "//*[@id=\"buy_orders_list_table\"]/table/tbody/tr[2]";
-            return Xsoup.compile(xpathGetFirstSellOrder).evaluate(mDoc).get();
         } else {
             Log.e(TAG, "getJsScript: ");
         }

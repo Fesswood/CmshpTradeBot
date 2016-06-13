@@ -1,4 +1,4 @@
-package com.github.fesswood.cmshptradebot.data.UserDetail;
+package com.github.fesswood.cmshptradebot.data.db.UserDetail;
 
 import io.realm.Realm;
 

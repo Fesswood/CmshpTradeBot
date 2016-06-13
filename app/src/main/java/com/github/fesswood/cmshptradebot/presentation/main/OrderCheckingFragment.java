@@ -13,11 +13,20 @@ import android.webkit.WebView;
 
 import com.github.fesswood.cmshptradebot.OrderDataExtractor;
 import com.github.fesswood.cmshptradebot.R;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;
-import com.github.fesswood.cmshptradebot.data.order.OrderModel;
+import com.github.fesswood.cmshptradebot.data.api.RestApiImplWorker;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel;
+import com.github.fesswood.cmshptradebot.data.db.order.OrderModel;
+import com.github.fesswood.cmshptradebot.data.event.LoginSuccessEvent;
 import com.github.fesswood.cmshptradebot.presentation.main.common.WebViewManager;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -56,8 +65,23 @@ public class OrderCheckingFragment extends Fragment {
         mRepeatRunnable = new RepeatRunnable();
         mUpdateInterval = 29 * 1000;
         mViewManager.setLoadPageWithDataListener(this::extractData);
-        mViewManager.startWithBasicUrl();
-        mOrderDataExtractor.setFinishedListener(this::checkOrders);
+        // mViewManager.startWithBasicUrl();
+        // mOrderDataExtractor.setFinishedListener(this::checkOrders);
+    }
+
+    @Subscribe
+    public void onLoginSuccessEvent(LoginSuccessEvent event) {
+        RestApiImplWorker.getInstance().enqueueCmshpBody(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponse: " + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
     }
 
 

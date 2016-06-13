@@ -1,4 +1,4 @@
-package com.github.fesswood.cmshptradebot.data.order;
+package com.github.fesswood.cmshptradebot.data.db.order;
 
 import io.realm.RealmObject;
 

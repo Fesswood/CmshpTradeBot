@@ -1,4 +1,4 @@
-package com.github.fesswood.cmshptradebot.data;
+package com.github.fesswood.cmshptradebot.data.db;
 
 /**
  * Created by fesswood on 31.05.16.
@@ -7,9 +7,9 @@ package com.github.fesswood.cmshptradebot.data;
 import android.util.Log;
 
 import com.github.fesswood.cmshptradebot.app.App;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.DbRepository;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticObjectMapper;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.DbRepository;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticObjectMapper;
 import com.github.fesswood.cmshptradebot.data.event.TradeEvent;
 
 import eu.verdelhan.ta4j.AnalysisCriterion;

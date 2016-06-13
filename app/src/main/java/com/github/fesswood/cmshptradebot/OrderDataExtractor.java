@@ -5,9 +5,9 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticObjectMapper;
-import com.github.fesswood.cmshptradebot.data.order.OrderModel;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticObjectMapper;
+import com.github.fesswood.cmshptradebot.data.db.order.OrderModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,12 +17,10 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import us.codecraft.xsoup.Xsoup;
 
-import static com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel.StatisticPeriod;
+import static com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel.StatisticPeriod;
 
 /**
  * Created by fesswood on 22.05.16.

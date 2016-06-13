@@ -16,10 +16,10 @@ import android.widget.TextView;
 
 import com.github.fesswood.cmshptradebot.R;
 import com.github.fesswood.cmshptradebot.app.App;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.DbRepository;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticObjectMapper;
-import com.github.fesswood.cmshptradebot.data.TradingBotOnMovingTimeSeries;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.DbRepository;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticObjectMapper;
+import com.github.fesswood.cmshptradebot.data.db.TradingBotOnMovingTimeSeries;
 import com.github.fesswood.cmshptradebot.data.event.TradeEvent;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.Legend;
@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import eu.verdelhan.ta4j.Tick;
 import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator;
 import eu.verdelhan.ta4j.indicators.trackers.SMAIndicator;
 

@@ -1,4 +1,4 @@
-package com.github.fesswood.cmshptradebot.data.TradeStatistic;
+package com.github.fesswood.cmshptradebot.data.db.TradeStatistic;
 
 import android.support.annotation.IntDef;
 

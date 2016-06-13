@@ -4,7 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.github.fesswood.cmshptradebot.BuildConfig;
-import com.github.fesswood.cmshptradebot.data.Migration;
+import com.github.fesswood.cmshptradebot.data.db.Migration;
 
 import org.greenrobot.eventbus.EventBus;
 

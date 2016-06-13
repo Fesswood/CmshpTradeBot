@@ -14,11 +14,11 @@ import android.webkit.WebView;
 import com.github.fesswood.cmshptradebot.ChartDataExtractor;
 import com.github.fesswood.cmshptradebot.R;
 import com.github.fesswood.cmshptradebot.app.App;
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;
-import com.github.fesswood.cmshptradebot.data.TradingBotOnMovingTimeSeries;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel;
+import com.github.fesswood.cmshptradebot.data.db.TradingBotOnMovingTimeSeries;
 import com.github.fesswood.cmshptradebot.data.event.TradeEvent;
-import com.github.fesswood.cmshptradebot.data.tradeHistory.TradeHistoryModel;
-import com.github.fesswood.cmshptradebot.data.tradeHistory.TradeHistoryRepository;
+import com.github.fesswood.cmshptradebot.data.db.tradeHistory.TradeHistoryModel;
+import com.github.fesswood.cmshptradebot.data.db.tradeHistory.TradeHistoryRepository;
 import com.github.fesswood.cmshptradebot.presentation.main.common.WebViewManager;
 
 import java.util.Date;

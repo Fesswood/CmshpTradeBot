@@ -1,13 +1,12 @@
-package com.github.fesswood.cmshptradebot.data.tradeHistory;
+package com.github.fesswood.cmshptradebot.data.db.tradeHistory;
 
 import android.util.Log;
 
-import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;
+import com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel;
 
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 /**
  * Created by fesswood on 31.05.16.

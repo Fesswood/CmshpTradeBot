@@ -1,4 +1,4 @@
-package com.github.fesswood.cmshptradebot.data.TradeStatistic;
+package com.github.fesswood.cmshptradebot.data.db.TradeStatistic;
 
 import android.util.Log;
 
@@ -13,9 +13,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import eu.verdelhan.ta4j.Tick;
-import eu.verdelhan.ta4j.indicators.trackers.DoubleEMAIndicator;
 
-import static com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel.*;
+import static com.github.fesswood.cmshptradebot.data.db.TradeStatistic.TradeStatisticModel.*;
 
 /**
  * Created by fesswood on 29.05.16.
@@ -46,11 +45,11 @@ public class TradeStatisticObjectMapper {
 
     public static Tick mapToTick(TradeStatisticModel model) {
         return new Tick(new DateTime(model.getTimestamp()),
-                model.getOpeningPrice(),
-                model.getMaxPrice(),
-                model.getMinPrice(),
-                model.getClosingPrice(),
-                model.getPartCount());
+                "" + model.getOpeningPrice(),
+                "" + model.getMaxPrice(),
+                "" + model.getMinPrice(),
+                "" + model.getClosingPrice(),
+                "" + model.getPartCount());
     }
 
     public static CandleEntry mapToCandleEntry(int index, TradeStatisticModel model) {

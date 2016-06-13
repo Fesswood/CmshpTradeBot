@@ -1,12 +1,9 @@
-package com.github.fesswood.cmshptradebot.data;
+package com.github.fesswood.cmshptradebot.data.db;
 
 import android.util.Log;
 
-import java.util.Date;
-
 import io.realm.DynamicRealm;
 import io.realm.RealmMigration;
-import io.realm.RealmObjectSchema;
 import io.realm.RealmSchema;
 
 /**

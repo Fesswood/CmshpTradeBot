@@ -1,4 +1,4 @@
-package com.github.fesswood.cmshptradebot.data.tradeHistory;
+package com.github.fesswood.cmshptradebot.data.db.tradeHistory;
 
 import io.realm.RealmObject;
 

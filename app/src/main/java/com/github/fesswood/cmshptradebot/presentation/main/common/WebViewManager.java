@@ -15,8 +15,9 @@ import android.webkit.WebViewClient;
 
 import com.github.fesswood.cmshptradebot.R;
 import com.github.fesswood.cmshptradebot.app.App;
-import com.github.fesswood.cmshptradebot.data.UserDetail.ProfileModel;
-import com.github.fesswood.cmshptradebot.data.UserDetail.ProfileRepository;
+import com.github.fesswood.cmshptradebot.data.db.UserDetail.ProfileModel;
+import com.github.fesswood.cmshptradebot.data.db.UserDetail.ProfileRepository;
+import com.github.fesswood.cmshptradebot.data.event.LoginSuccessEvent;
 import com.github.fesswood.cmshptradebot.data.event.TradeEvent;
 
 /**
@@ -42,6 +43,7 @@ public class WebViewManager extends WebViewClient {
     private int mAmount;
     private int mTradeState;
     private int mWebManagerMode;
+    private boolean isNeedLoginSuccessNotification = true;
 
     public WebViewManager(WebView webView) {
         this(webView, MANAGER_MODE_TRADE);
@@ -138,6 +140,7 @@ public class WebViewManager extends WebViewClient {
         } else if (mWebViewState >= 3) {
             addProccessHtmlCallback(view);
             mTradeState = TRADE_STATE_HOLD;
+            notifyLoginSuccess();
         } else if (mWebViewState == LOAD_BASIC_URL && (mTradeState > 0)) {
             switch (mTradeState) {
                 case TRADE_STATE_ENTER:
@@ -150,6 +153,13 @@ public class WebViewManager extends WebViewClient {
             ;
         } else {
             loadData24hUrl();
+        }
+    }
+
+    private void notifyLoginSuccess() {
+        if(!isNeedLoginSuccessNotification){
+            isNeedLoginSuccessNotification =false;
+            App.getBus().post(new LoginSuccessEvent());
         }
     }
 
