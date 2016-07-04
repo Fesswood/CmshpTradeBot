@@ -17,8 +17,10 @@ import com.github.fesswood.cmshptradebot.R;
 import com.github.fesswood.cmshptradebot.app.App;
 import com.github.fesswood.cmshptradebot.data.UserDetail.ProfileModel;
 import com.github.fesswood.cmshptradebot.data.UserDetail.ProfileRepository;
+import com.github.fesswood.cmshptradebot.data.event.StartMonitoringEvent;
 import com.github.fesswood.cmshptradebot.data.event.TradeEvent;
 import com.github.fesswood.cmshptradebot.data.event.WaitForLoginEvent;
+import com.github.fesswood.cmshptradebot.data.event.WaitForLoginFinishEvent;
 
 /**
  * Created by fesswood on 02.06.16.
@@ -82,7 +84,7 @@ public class WebViewManager extends WebViewClient {
     }
 
 
-    private void loadLoginUrl() {
+    public void loadLoginUrl() {
         mWebViewState = LOAD_LOGIN_URL;
         mWebView.loadUrl(urlArray[1]);
     }
@@ -134,6 +136,7 @@ public class WebViewManager extends WebViewClient {
         if (isLoginNeeded(url) && mWebViewState != LOAD_LOGIN_URL) {
             App.getBus().post(new WaitForLoginEvent());
         } else {
+            App.getBus().post(new WaitForLoginFinishEvent());
             addProccessHtmlCallback(view);
         }
     }
@@ -144,8 +147,9 @@ public class WebViewManager extends WebViewClient {
         } else if (mWebViewState == LOAD_LOGIN_URL
                 && TextUtils.equals(url, "https://dolevik.com/signin")) {
             prepareLoginForm(view);
-        } else if (mWebViewState >= 3) {
+        } else if (mWebViewState >= LOAD_DATA_URL) {
             addProccessHtmlCallback(view);
+            App.getBus().post(new StartMonitoringEvent());
             mTradeState = TRADE_STATE_HOLD;
         } else if (mWebViewState == LOAD_BASIC_URL && (mTradeState > 0)) {
             switch (mTradeState) {

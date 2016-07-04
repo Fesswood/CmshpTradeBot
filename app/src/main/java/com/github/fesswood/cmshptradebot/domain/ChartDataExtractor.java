@@ -103,6 +103,9 @@ public class ChartDataExtractor {
 
     public List<TradeStatisticModel> extractRawData() {
         String dataTable = getJsScript();
+        if(dataTable ==null){
+            return new ArrayList<>();
+        }
         mDocPart = Jsoup.parse(dataTable);
         int dataIndexBegin = 0;
         List<TradeStatisticModel> statisticModelList = null;

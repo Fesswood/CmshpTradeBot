@@ -54,12 +54,16 @@ public class OrderDataExtractor {
 
     @Nullable
     public OrderModel getOrder(String xpathGetFirstSellOrder) {
+        Log.d(TAG, "getOrder() called with: " + "xpathGetFirstSellOrder = [" + xpathGetFirstSellOrder + "]");
         if (mIsInitCompleted) {
              Elements elements = Xsoup.compile(xpathGetFirstSellOrder).evaluate(mDoc).getElements();
             if(!elements.isEmpty()){
                 Elements td = elements.get(0).getElementsByTag("td");
                 Element price = td.get(0);
                 Element partCount = td.get(1);
+                Log.d(TAG, "getOrder: elements td"+td);
+                Log.d(TAG, "getOrder: elements price"+price);
+                Log.d(TAG, "getOrder: elements partCount"+partCount);
                 if (price != null && partCount != null) {
                     return new OrderModel(Float.parseFloat(price.html()), Integer.parseInt(partCount.html().split("\\<sub\\>")[0]));
                 }else {

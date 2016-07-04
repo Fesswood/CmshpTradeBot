@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
-import com.github.fesswood.cmshptradebot.app.App;
-import com.github.fesswood.cmshptradebot.data.event.TradeEvent;
-import com.github.fesswood.cmshptradebot.data.event.WaitForLoginEvent;
-import com.github.fesswood.cmshptradebot.domain.OrderDataExtractor;
 import com.github.fesswood.cmshptradebot.R;
+import com.github.fesswood.cmshptradebot.app.App;
 import com.github.fesswood.cmshptradebot.data.TradeStatistic.TradeStatisticModel;
+import com.github.fesswood.cmshptradebot.data.event.WaitForLoginEvent;
+import com.github.fesswood.cmshptradebot.data.event.WaitForLoginFinishEvent;
 import com.github.fesswood.cmshptradebot.data.order.OrderModel;
+import com.github.fesswood.cmshptradebot.domain.OrderDataExtractor;
 import com.github.fesswood.cmshptradebot.domain.OrderNotificationManager;
 import com.github.fesswood.cmshptradebot.presentation.main.common.WebViewManager;
 
@@ -56,7 +56,14 @@ public class OrderCheckingFragment extends Fragment {
         mViewManager = new WebViewManager((WebView) view.findViewById(R.id.wvSite));
         mViewManager.enableOrderCheckMode();
         //TODO delete test data
-        mSupportLevel.add(0.3);
+        //mSupportLevel.add(0.3);
+        mResistanceLevel.add(0.3);
+        mResistanceLevel.add(0.4);
+        mResistanceLevel.add(0.5);
+        mResistanceLevel.add(0.6);
+        mResistanceLevel.add(0.7);
+        mResistanceLevel.add(0.8);
+        mResistanceLevel.add(0.9);
         return view;
     }
 
@@ -66,27 +73,35 @@ public class OrderCheckingFragment extends Fragment {
         mHandler = new Handler();
         mRepeatRunnable = new RepeatRunnable();
         mUpdateInterval = 29 * 1000;
-        mViewManager.setLoadPageWithDataListener(this::extractData);
         mViewManager.startWithBasicUrl();
-        mOrderDataExtractor.setFinishedListener(this::checkOrders);
     }
 
 
     private void checkOrders(List<OrderModel> orders) {
-        checkSupportLevel(orders.get(0));
-        checkResistanceLevel(orders.get(2));
+        if (orders != null && orders.get(0) != null && orders.get(2) != null) {
+            checkSupportLevel(orders.get(0));
+            checkResistanceLevel(orders.get(2));
+        } else {
+            Log.e(TAG, "checkOrders: nothing to parse");
+        }
+        mHandler.removeCallbacks(mRepeatRunnable);
         mHandler.postDelayed(mRepeatRunnable, mUpdateInterval);
     }
 
     private void checkResistanceLevel(OrderModel orderModel) {
-
+        double price = orderModel.getPrice();
+        for (Double level : mResistanceLevel) {
+            if (level < price) {
+                OrderNotificationManager.getInstance().notifyResistanceLevelBroken(level, price);
+            }
+        }
     }
 
     private void checkSupportLevel(OrderModel orderModel) {
         double price = orderModel.getPrice();
         for (Double level : mSupportLevel) {
-            if(level > price){
-                OrderNotificationManager.getInstance().notifySupportLevelBroken(level , price);
+            if (level > price) {
+                OrderNotificationManager.getInstance().notifySupportLevelBroken(level, price);
             }
         }
     }
@@ -106,8 +121,18 @@ public class OrderCheckingFragment extends Fragment {
     @Subscribe
     public void WaitForLoginEvent(WaitForLoginEvent event) {
         Log.d(TAG, "WaitForLoginEvent: awaiting for login");
+        mViewManager.loadLoginUrl();
+    }
+
+    @Subscribe
+    public void WaitForLoginSuccessEvent(WaitForLoginFinishEvent event) {
+        Log.d(TAG, "WaitForLoginSuccessEvent: subscribe and parse");
+        mViewManager.setLoadPageWithDataListener(this::extractData);
+        mOrderDataExtractor.setFinishedListener(this::checkOrders);
+        mHandler.removeCallbacks(mRepeatRunnable);
         mHandler.postDelayed(mRepeatRunnable, mUpdateInterval);
     }
+
 
     @Override
     public void onDestroy() {

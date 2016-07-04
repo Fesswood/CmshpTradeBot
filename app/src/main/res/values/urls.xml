@@ -7,9 +7,9 @@
         <item>@string/data_1h_url</item>
     </string-array>
 
-    <string name="base_url">https://dolevik.com/CMSHP_trade__project</string>
+    <string name="base_url">https://dolevik.com/KIKOHASH_trade__project</string>
     <string name="login_url">https://dolevik.com/signin</string>
-    <string name="data_24h_url"><![CDATA[https://dolevik.com/charts/get.php?pcode=CMSHP&tline=24ch]]></string>
-    <string name="data_1h_url"><![CDATA[https://dolevik.com/charts/get.php?pcode=CMSHP&tline=1ch]]></string>
+    <string name="data_24h_url"><![CDATA[https://dolevik.com/charts/get.php?pcode=KIKOHASH&tline=24ch]]></string>
+    <string name="data_1h_url"><![CDATA[https://dolevik.com/charts/get.php?pcode=KIKOHASH&tline=1ch]]></string>
 
 </resources>

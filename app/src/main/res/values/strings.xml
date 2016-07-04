@@ -18,6 +18,8 @@
     </string>
     <string name="title_activity_tabbed">TabbedActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="support_level_broken">Уровень подджерки (%1$f) сломлен,новая цена покупки (%2$f)</string>
+    <string name="support_level_broken">Уровень подджерки (%1$f) сломлен, новая цена покупки (%2$f)</string>
     <string name="support_level_broken_title">Уровень поддержки пройден</string>
+    <string name="resist_level_broken">Уровень сопротивления (%1$f) сломлен, новая цена продажи (%2$f)</string>
+    <string name="resist_level_broken_title">Уровень сопротивления пройден</string>
 </resources>
